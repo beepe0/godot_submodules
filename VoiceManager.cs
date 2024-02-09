@@ -19,6 +19,7 @@ public partial class VoiceManager : Node
     private AudioStreamGeneratorPlayback _generatorPlayback;
     private List<float> _receivedAudioBuffer = new();
     private bool _canClearBuffer = false;
+
     public override void _EnterTree()
     {
         Instance = this;
@@ -88,6 +89,7 @@ public partial class VoiceManager : Node
     private void SynchronizeVoice(float[] data, int id)
     {
         if (_generatorPlayback == null) CreateVoice();
+        GameConsole.Instance.DebugWarning($"received -> data.Length: {data.Length}");
 
         _receivedAudioBuffer.AddRange(data);
     }
