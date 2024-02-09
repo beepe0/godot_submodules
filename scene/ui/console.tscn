@@ -13,6 +13,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("1_xvb74")
 _numberOfLines = 30
+_scrollSpeed = 10
 _richTextLable = NodePath("Panel/RichTextLabel")
 _lineEdit = NodePath("Panel/LineEdit")
 
