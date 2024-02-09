@@ -1,7 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://byssswptinsio"]
 
+<<<<<<< HEAD
 [ext_resource type="Script" path="res://submodule/console_manager/GameConsole.cs" id="1_xvb74"]
 [ext_resource type="StyleBox" uid="uid://ctjcyl5035ru8" path="res://submodule/console_manager/style/ui/console_input_normal.tres" id="2_pvteo"]
+=======
+[ext_resource type="Script" path="res://scripts/ui/GameConsole.cs" id="1_xvb74"]
+[ext_resource type="StyleBox" uid="uid://ctjcyl5035ru8" path="res://styles/ui/console_input_normal.tres" id="2_pvteo"]
+>>>>>>> 3a86dd82a2ea64f1a6c5a6c027ec23d127192d9a
 
 [node name="Console" type="Control" node_paths=PackedStringArray("_richTextLable", "_lineEdit")]
 layout_mode = 3
@@ -12,8 +17,13 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("1_xvb74")
+<<<<<<< HEAD
 _richTextLable = NodePath("Panel/RichTextLabel")
 _lineEdit = NodePath("Panel/LineEdit")
+=======
+_richTextLable = NodePath("")
+_lineEdit = NodePath("")
+>>>>>>> 3a86dd82a2ea64f1a6c5a6c027ec23d127192d9a
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -44,7 +54,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+<<<<<<< HEAD
 offset_top = 505.0
+=======
+>>>>>>> 3a86dd82a2ea64f1a6c5a6c027ec23d127192d9a
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
