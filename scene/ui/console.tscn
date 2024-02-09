@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://byssswptinsio"]
+
+[ext_resource type="Script" path="res://submodule/console_manager/GameConsole.cs" id="1_xvb74"]
+[ext_resource type="StyleBox" uid="uid://ctjcyl5035ru8" path="res://submodule/console_manager/style/ui/console_input_normal.tres" id="2_pvteo"]
+
+[node name="Console" type="Control" node_paths=PackedStringArray("_richTextLable", "_lineEdit")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_xvb74")
+_richTextLable = NodePath("Panel/RichTextLabel")
+_lineEdit = NodePath("Panel/LineEdit")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LineEdit" type="LineEdit" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 685.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = ExtResource("2_pvteo")
+theme_override_styles/focus = ExtResource("2_pvteo")
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 505.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+scroll_active = false
+autowrap_mode = 0
+deselect_on_focus_loss_enabled = false

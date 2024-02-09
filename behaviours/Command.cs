@@ -2,7 +2,7 @@
 {
     namespace GameConsole
     {
-        namespace Command
+        namespace Behaviour
         {
             using Godot;
             public partial class Command : Node
