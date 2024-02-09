@@ -11,6 +11,7 @@ namespace BP
             public static GameConsole Instance { get; private set; }
 
             [ExportGroup("Console Settings")]
+            [Export] private ushort _numberOfLines = 10;
             [Export] private float _fontSize = 20;
             [Export] private ushort _scrollSpeed = 1;
 
@@ -40,10 +41,6 @@ namespace BP
                     Input.MouseMode = (!Visible ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured);
                     Visible = !Visible;
                 }
-                else if (@event.IsActionPressed("show_cursor"))
-                {
-                    Input.MouseMode = Input.MouseModeEnum.Captured;
-                }
                 else if (@event.IsActionPressed("accept"))
                 {
                     Debug(_lineEdit.Text);
@@ -58,10 +55,9 @@ namespace BP
             }
             public void UpdateContent(ref int startLine)
             {
-                ushort numberOfLines = (ushort)(_richTextLable.Size.Y / _fontSize);
                 string content = string.Empty;
-                int sl = Math.Clamp(startLine, 0, Math.Max(_consoleContent.Count - (numberOfLines - 1), 0));
-                int el = numberOfLines + sl;
+                int sl = Math.Clamp(startLine, 0, Math.Max(_consoleContent.Count - (_numberOfLines - 1), 0));
+                int el = _numberOfLines + sl;
 
                 for (int i = sl, k = 0; i < _consoleContent.Count && k < el; k++, i++)
                 {
