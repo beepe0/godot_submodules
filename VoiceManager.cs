@@ -1,7 +1,6 @@
-﻿using Godot;
-using System;
+﻿using BP.GameConsole;
+using Godot;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 public partial class VoiceManager : Node
 {
@@ -10,30 +9,28 @@ public partial class VoiceManager : Node
     [ExportGroup("Voice Settings")]
     [Export] public bool recording = false;
     [Export] public bool listen = false;
-    [Export] public float threshold = 0.005f;
+    [Export(PropertyHint.Range, "0, 1, 0.001")] public float threshold = 0.005f;
+
+    [ExportGroup("References")]
     [Export] public AudioStreamPlayer audioStreamPlayer;
     [Export] VoiceGrabber _voiceGrabber;
 
     private AudioEffectCapture _audioEffectCapture;
     private AudioStreamGeneratorPlayback _generatorPlayback;
-    private List<float> _receivedAudioBuffer = new List<float>();
+    private List<float> _receivedAudioBuffer = new();
     private bool _canClearBuffer = false;
- 
     public override void _EnterTree()
     {
         Instance = this;
-    }
-    public override void _Ready()
-    {
     }
     public override void _Process(double delta)
     {
         if (_generatorPlayback != null)
             CaptureVoice();
 
-       ListenToMicrophone();
+        ListenToMicrophone();
     }
-    private void CreateMicrophone()
+    private void GetMicrophone()
     {
         _audioEffectCapture = AudioServer.GetBusEffect(AudioServer.GetBusIndex(_voiceGrabber.Bus), 0) as AudioEffectCapture;
     }
@@ -49,13 +46,13 @@ public partial class VoiceManager : Node
     }
     private void ListenToMicrophone()
     {
-        if (!recording) { _canClearBuffer = false; return; }
+        if (!recording) return;
 
-        if (_audioEffectCapture == null) CreateMicrophone();
+        if (_audioEffectCapture == null) GetMicrophone();
         if (!_canClearBuffer) _audioEffectCapture.ClearBuffer();
 
-        int frame = _audioEffectCapture.GetFramesAvailable();
-        Vector2[] stereoBuffer = _audioEffectCapture.GetBuffer(frame);
+        int frames = _audioEffectCapture.GetFramesAvailable();
+        Vector2[] stereoBuffer = _audioEffectCapture.GetBuffer(frames);
 
         if (stereoBuffer.Length > 0)
         {
@@ -68,10 +65,11 @@ public partial class VoiceManager : Node
                 data[k] = value;
             }
             if (maxValue < threshold) return;
-            if (listen) Speak(data, Multiplayer.GetUniqueId());
-            GameConsole.Instance.DebugWarning($"data.Length: {data.Length}, maxThreshold: {maxValue}, frame: {frame}");
+            if (listen) SynchronizeVoice(data, Multiplayer.GetUniqueId());
 
-            //Rpc(MethodName.Speak, data, Multiplayer.GetUniqueId());
+            GameConsole.Instance.DebugWarning($"data.Length: {data.Length}, maxThreshold: {maxValue}, frame: {frames}");
+
+            Rpc(MethodName.SynchronizeVoice, data, Multiplayer.GetUniqueId());
         }
         _canClearBuffer = recording;
     }
@@ -87,7 +85,7 @@ public partial class VoiceManager : Node
     }
 
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false, TransferChannel = 0, TransferMode = MultiplayerPeer.TransferModeEnum.Unreliable)]
-    private void Speak(float[] data, int id)
+    private void SynchronizeVoice(float[] data, int id)
     {
         if (_generatorPlayback == null) CreateVoice();
 
