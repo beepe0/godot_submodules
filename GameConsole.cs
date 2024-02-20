@@ -11,7 +11,7 @@ namespace BP
             public static GameConsole Instance { get; private set; }
 
             [ExportGroup("Console Settings")]
-            [Export] private ushort _numberOfLines = 10;
+            [Export] private ushort _numberOfLines = 30;
             [Export] private float _fontSize = 20;
             [Export] private ushort _scrollSpeed = 1;
 
@@ -97,6 +97,7 @@ namespace BP
             {
                 _currentLine = 0;
                 _richTextLable.Clear();
+                _consoleContent.Clear();
                 UpdateContent(ref _currentLine);
             }
             public void DebugCallDeferrd(string text)
