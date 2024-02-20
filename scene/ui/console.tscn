@@ -42,6 +42,7 @@ theme_override_styles/normal = ExtResource("2_pvteo")
 theme_override_styles/focus = ExtResource("2_pvteo")
 context_menu_enabled = false
 virtual_keyboard_enabled = false
+clear_button_enabled = true
 middle_mouse_paste_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
