@@ -1,6 +1,4 @@
-using BP.GameConsole;
 using Godot;
-using System;
 
 namespace BP
 {
