@@ -69,28 +69,37 @@ namespace BP
                 _richTextLable.Clear();
                 _richTextLable.AppendText(content);
             }
+
+            public static string SetColor(string text, Color color)
+            {
+                return $"[color={color.ToHtml()}]{text}[/color]";
+            }
+            public static string SetColor(string text, string hex)
+            {
+                return $"[color={hex}]{text}[/color]";
+            }
             public void Debug(string text)
             {
                 _currentLine++;
-                _consoleContent.Add($"[color=#808080]{text}[/color]");
+                _consoleContent.Add($"{SetColor(text, "#808080")}");
                 UpdateContent(ref _currentLine);
             }
             public void DebugLog(string text)
             {
                 _currentLine++;
-                _consoleContent.Add($"[color=#21799e][log][/color]: {text}");
+                _consoleContent.Add($"{SetColor($"[{DateTime.Now.ToLongTimeString()}]:", "#21799e")} {text}");
                 UpdateContent(ref _currentLine);
             }
             public void DebugWarning(string text)
             {
                 _currentLine++;
-                _consoleContent.Add($"[color=#eb8334][warning][/color]: {text}");
+                _consoleContent.Add($"{SetColor($"[{DateTime.Now.ToLongTimeString()}]:", "#eb8334")} {text}");
                 UpdateContent(ref _currentLine);
             }
             public void DebugError(string text)
             {
                 _currentLine++;
-                _consoleContent.Add($"[color=#963636][error][/color]: {text}");
+                _consoleContent.Add($"{SetColor($"[{DateTime.Now.ToLongTimeString()}]:", "#963636")} {text}");
                 UpdateContent(ref _currentLine);
             }
             public void ClearConsole()
