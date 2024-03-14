@@ -6,6 +6,7 @@ namespace BP
 {
     namespace ComponentSystem
     {
+        [GlobalClass]
         public partial class ComponentSystem : Node
         {
             public static readonly Dictionary<string, ComponentSystem> ComponentsSystems = new();
